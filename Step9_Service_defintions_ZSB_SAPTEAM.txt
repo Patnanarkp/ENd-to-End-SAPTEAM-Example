@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service Definition for SAP Team'
+define service ZSD_SAPTEAM {
+  expose ZC_SAPTEAM as SAPTeam;
+}

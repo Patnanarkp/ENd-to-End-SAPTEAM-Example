@@ -1,0 +1,35 @@
+managed;
+
+define behavior for ZI_SAPTEAM  alias BCTeam
+implementation in class zbp_I_SAPTEAM unique
+persistent table ZRAP_SAPTEAM
+lock master
+//authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+
+  field ( numbering : managed, readonly ) Id;
+  field ( readonly ) Active, Salary;
+  field ( readonly ) LastChangedAt, LocalLastChangedAt;
+
+  action ( features : instance ) setActive result [1] $self;
+  determination changeSalary on save { field Role; }
+  validation validateAge on save { field Age; create; }
+
+    mapping for ZRAP_SAPTEAM
+  {
+    Id = id;
+    FirstName = firstName;
+    LastName = lastName;
+    Age = age;
+    Role = role;
+    Salary = salary;
+    Active = active;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
